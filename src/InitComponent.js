@@ -9,8 +9,8 @@ export default class InitComponent extends Component{
                 <div className="ic-title">
                     Escull una opció
                 </div>
-                <button className="ic-btn ic-btn-loadBtn">Carrega</button>
-                <button className="ic-btn ic-btn-loadSaveBtn">Obre</button>
+                <NavLink to="/load"><button className="ic-btn ic-btn-loadBtn">Carrèga</button></NavLink>
+                <NavLink to="/open"><button className="ic-btn ic-btn-loadSaveBtn">Obre</button></NavLink>
             </div>
         );
     }

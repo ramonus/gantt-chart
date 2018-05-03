@@ -5,12 +5,16 @@ import {
   HashRouter,
   Route,
 } from 'react-router-dom';
+import ChartDisplay from './ChartDisplay';
 
 class App extends Component {
   render() {
     return (
-      <HashRouter>
-        <Route path="/" component={MainComponent} />
+      <HashRouter basename="/">
+      <div>
+        <Route exact path="/" component={MainComponent} />
+        <Route path="/load" component={ChartDisplay} />
+      </div>
       </HashRouter>
     );
   }

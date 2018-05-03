@@ -16,6 +16,7 @@
     margin-bottom: 1.5em;
 }
 .ic-btn{
+    position: relative;
     font-size: 15px;
     font-family: "Comfortaa", cursive;
     border: 2px solid;
@@ -23,7 +24,51 @@
     margin: 0px 5px;
     cursor: pointer;
     border-radius: 4px;
+    outline: none;
+    user-select: none;
+    transition: all 0.3s ease-in-out;
 }
 .ic-btn-loadBtn{
     background: linear-gradient(to bottom, lightgray, rgb(201, 201, 201));
+    padding-right: 2em;
+}
+.ic-btn-loadBtn::after{
+    content:'';
+    position:absolute;
+    background: url("./gear.svg");
+    opacity: 0;
+    height: 1.3em;
+    width: 1.3em;
+    animation: rotate 4s linear infinite;
+    right: 0em;
+    transition: all 0.3s ease-in-out;
+}
+.ic-btn:hover{
+    box-shadow: 0px 2px 4px 0px gray;
+}
+.ic-btn-loadBtn:hover::after{
+    opacity: 0.7;
+    right: 0.5em;
+}
+.ic-btn-loadSaveBtn{
+    background: linear-gradient(to bottom, lightgray, rgb(201, 201, 201));
+    padding-right: 2em;
+}
+.ic-btn-loadSaveBtn::after{
+    content:'';
+    position:absolute;
+    background: url("./folder.svg");
+    opacity: 0;
+    height: 1.3em;
+    width: 1.3em;
+    right: 0em;
+    transition: all 0.3s ease-in-out;
+}
+.ic-btn-loadSaveBtn:hover::after{
+    opacity: 0.7;
+    right: 0.5em;
+}
+@keyframes rotate{
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
