@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css?family=Comfortaa");
+
+.ic-container{
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    padding: 40px 50px;
+    border: 1px solid rgb(40, 40, 40);
+    background-color: rgb(219, 219, 219);
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px 0px rgba(87, 87, 87, 0.363);
+}
+.ic-title{
+    font-size:18px;
+    font-family: "Comfortaa", cursive;
+    margin-bottom: 1.5em;
+}
+.ic-btn{
+    font-size: 15px;
+    font-family: "Comfortaa", cursive;
+    border: 2px solid;
+    padding: 1em 1.5em;
+    margin: 0px 5px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.ic-btn-loadBtn{
+    background: linear-gradient(to bottom, lightgray, rgb(201, 201, 201));
+}
