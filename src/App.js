@@ -14,6 +14,7 @@ class App extends Component {
       <div>
         <Route exact path="/" component={MainComponent} />
         <Route path="/load" component={ChartDisplay} />
+        <Route path="/open" component={ChartDisplay} />
       </div>
       </HashRouter>
     );
