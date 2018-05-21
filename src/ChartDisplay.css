@@ -1,0 +1,19 @@
+.cd-table{
+    border: 2px solid black;
+    width: 100%;
+    position: relative;
+}
+.cd-lineName{
+    font-size: 15px;
+    padding: 1em 1.5em;
+    font-weight: bold;
+    display: inline-block;
+}
+.cd-line{
+    width: 100%;
+    padding: 0;
+    text-align: left;
+}
+.cd-content{
+    overflow: auto;
+}
