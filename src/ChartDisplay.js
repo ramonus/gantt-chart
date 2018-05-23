@@ -71,7 +71,7 @@ export default class ChartDisplay extends Component{
                 <div className="cd-container">
                     <table border="1"className="cd-table">
                         <thead>
-                            <TimeBar />
+                            <TimeBar units='days' resolution={15} />
                         </thead>
                         <tbody className="cd-content">
                             {tableIn}
