@@ -21,14 +21,14 @@ class Core{
             this.projections[line.name] = [];
         });
         this.processes.map((process, pi) => {
+            let ctime = process.start;
             process.tasks.map((task,ti) => {
                 let ni = 0;
                 for(let i=0;i<this.projections[task.line].length;i++){
-                    ctime
                     let atask = this.projections[task.line][i];
-                    if((atask.line===task.line) & (i>0) & (process.tasks[ti-1].start+)){
+                    // if((atask.line===task.line) & (i>0) & (process.tasks[ti-1].start+)){
 
-                    }
+                    // }
                 }
             });
         });

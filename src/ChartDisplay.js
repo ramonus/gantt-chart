@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./ChartDisplay.css";
 import TimeBar from './TimeBar';
+import LineComponent from './LineComponent';
 const Core = require("./core");
 
 export default class ChartDisplay extends Component{
@@ -60,7 +61,7 @@ export default class ChartDisplay extends Component{
                 <tr key={index}>
                     <td
                     className="cd-lineName">{line.name}</td>
-                    <td className="cd-line"></td>
+                    <td className="cd-line"><LineComponent /></td>
                 </tr>
             );
         });

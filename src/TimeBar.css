@@ -1,0 +1,11 @@
+.tb-rule-container{
+    font-size: 15px;
+    padding: 0;
+    width: 100%;
+    height: 1.5em;
+}
+.tb-rule{
+    width: 200px;
+    height: 100%;
+    background-color: lightblue;
+}

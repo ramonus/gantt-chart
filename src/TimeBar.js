@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import "./TimeBar.css";
 
 export default class TimeBar extends Component{
     constructor(props){
@@ -9,8 +10,8 @@ export default class TimeBar extends Component{
         return (
             <tr>
                 <td>PR</td>
-                <td>
-                    Some time bar
+                <td className="tb-rule-container">
+                    <div className="tb-rule"></div>
                 </td>
             </tr>
         );
