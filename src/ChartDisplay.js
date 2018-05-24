@@ -8,16 +8,22 @@ export default class ChartDisplay extends Component{
 
     constructor(props){
         super(props);
-        let m, p;
+        let m, p, u, r;
         if(props.data){
-            let {machines,processes} = props.data;
+            let {machines,processes,units,resolution} = props.data;
             m = machines;
             p = processes;
+            u = units;
+            r = resolution;
         }
         if(!p) p = [];
         if(!m) m = this.loadTestData();
+        if(!u) u = 'days';
+        if(!r) r = 60; 
         this.state = {
             core: new Core(m,p),
+            units: u,
+            resolution: r,
         };
     }
     loadTestData = () => {
@@ -61,7 +67,7 @@ export default class ChartDisplay extends Component{
                 <tr key={index}>
                     <td
                     className="cd-lineName">{line.name}</td>
-                    <td className="cd-line"><LineComponent /></td>
+                    <td className="cd-line"><LineComponent units={this.state.units} resolution={this.state.resolution} /></td>
                 </tr>
             );
         });
@@ -71,7 +77,7 @@ export default class ChartDisplay extends Component{
                 <div className="cd-container">
                     <table border="1"className="cd-table">
                         <thead>
-                            <TimeBar units='days' resolution={15} />
+                            <TimeBar units={this.state.units} resolution={this.state.resolution} />
                         </thead>
                         <tbody className="cd-content">
                             {tableIn}

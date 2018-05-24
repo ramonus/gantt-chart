@@ -12,5 +12,7 @@
 }
 .test{
     background-color: red;
-    width: 60px;
+}
+.blank{
+    background-color: white; 
 }

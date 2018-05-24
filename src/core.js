@@ -26,7 +26,7 @@ class Core{
                 let ni = 0;
                 for(let i=0;i<this.projections[task.line].length;i++){
                     let atask = this.projections[task.line][i];
-                    // if((atask.line===task.line) & (i>0) & (process.tasks[ti-1].start+)){
+                    // if((atask.line===task.line) & (i<this.projections[task.line].length) & (process.tasks[ti-1].start+)){
 
                     // }
                 }

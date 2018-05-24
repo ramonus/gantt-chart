@@ -37,8 +37,7 @@ export default class TimeBar extends Component{
             <tr>
                 <td>PR</td>
                 <td className="tb-rule-container">
-                    <div className="tb-rule"
-                        onMouseOver>
+                    <div className="tb-rule">
                         <div ref={this.bottomLine}
                             style={{width:this.state.width}}
                             className="tb-bottomline"></div>
