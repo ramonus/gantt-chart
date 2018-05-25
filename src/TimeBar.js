@@ -29,6 +29,17 @@ export default class TimeBar extends Component{
             this.setState({ticks,width: correctWidth});
         });
     }
+    _getDateString = (time) => {
+        let d = new Date();
+        d.setTime(time);
+        switch(this.props.units){
+            case 'hours':
+                return d.toLocaleTimeString().split(":")[0];
+            default:
+                return d.toLocaleDateString();
+        }
+
+    }
     render(){
         const { units, resolution } = this.props;
         return (
