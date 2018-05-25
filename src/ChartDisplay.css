@@ -4,10 +4,11 @@
     position: relative;
 }
 .cd-lineName{
+    display: inline-block;
     font-size: 15px;
     padding: 1em 1.5em;
     font-weight: bold;
-    display: inline-block;
+    white-space: nowrap;
 }
 .cd-line{
     font-size: 15px;

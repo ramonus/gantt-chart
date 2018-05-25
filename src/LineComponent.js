@@ -17,7 +17,6 @@ export default class LineComponent extends Component{
             let cp = reference;
             for(let i=0;i<data.length;i++){
                 let atask = data[i];
-                console.log("Index:",i,"dur:",atask.duration,"cp:",cp);
                 if((atask.start-cp)>0){
                     tasks.push(<EmptyTask n={i} key={-(i+1)} duration={atask.start-cp} />);
                 }

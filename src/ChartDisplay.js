@@ -17,7 +17,6 @@ export default class ChartDisplay extends Component{
             u = units;
             r = resolution;
         }
-        console.log(defaults.lines);
         if(!p) p = defaults.processes;
         if(!m) m = defaults.lines;
         if(!u) u = 'days';
@@ -122,7 +121,6 @@ export default class ChartDisplay extends Component{
                 </tr>
             );
         });
-        console.log("TableIn:",tableIn);
         return (
             <div align="center">
                 <h1>ChartDisplay</h1>

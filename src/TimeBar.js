@@ -16,9 +16,8 @@ export default class TimeBar extends Component{
     }
     createTicks = () => {
         this.setState({width: "99%"},() => {
-            let { units, resolution } = this.props;
+            let { resolution } = this.props;
             let size = this.bottomLine.current.offsetWidth;
-            let as = Math.floor(size/resolution);
             let ticks = new Array(Math.floor(size/resolution)+1);
             for(let i=0;i<ticks.length;i++){
                 ticks[i] = (
@@ -41,7 +40,6 @@ export default class TimeBar extends Component{
 
     }
     render(){
-        const { units, resolution } = this.props;
         return (
             <tr>
                 <td>PR</td>
