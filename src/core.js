@@ -1,9 +1,11 @@
 
 class Core{
-    constructor(lines, processes){
+    constructor(props){
+        let { lines, processes, reference } = props;
         this.lines = lines||[];
         this.processes = processes||[];
         this.setup = false;
+        this.reference = reference;
         this.setupLines();
     }
     log(){
@@ -12,26 +14,70 @@ class Core{
     getLines(){
         return this.lines;
     }
+    getReference(){
+        return this.reference;
+    }
     getProc(){
         return this.processes;
     }
-    setupLines = () => {
+    getProjections = (b) => {
+        if(b){
+            this.setupLines(() => {
+                return this.projections;
+            });
+        }else{
+            return this.projections;
+        }
+    }
+    setupLines = (callback) => {
+        console.log("Setting up lines...");
         this.projections = {};
         this.lines.forEach(line => {
             this.projections[line.name] = [];
         });
-        this.processes.map((process, pi) => {
+        console.log("Projections created");
+        console.log("Processes:",this.processes);
+        this.processes.forEach((process, pi) => {
+            console.log("Working on process:",process);
             let ctime = process.start;
-            process.tasks.map((task,ti) => {
-                let ni = 0;
+            process.tasks.forEach((task, ti) => {
+                console.log("Working on task:",task);
+                const find = (time) => {
+
+                }
+                let ni = 0, nt, atime = ctime;
                 for(let i=0;i<this.projections[task.line].length;i++){
                     let atask = this.projections[task.line][i];
-                    // if((atask.line===task.line) & (i<this.projections[task.line].length) & (process.tasks[ti-1].start+)){
-
-                    // }
+                    let a,b,c;
+                    a = (atask.start - atime) > task.duration;
+                    b = i === this.projections[task.line].length-1;
+                    if(a){
+                        nt = {...task,
+                            start: atime,
+                        };
+                        ni = i;
+                        break;
+                    }else if(b){
+                        nt = {...task,
+                            start: atask.start+atask.duration,
+                        };
+                        ni = i+1;
+                        break;
+                    }
+                    atime = atask.start+atask.duration;
                 }
+                if(atime == ctime){
+                    nt = {...task,
+                        start: ctime,
+                    };
+                }
+                this.projections[task.line].splice(ni,0,nt);
+                ctime = nt.start+nt.duration;
+                console.log("Constructed, ni:",ni,"ntask:",nt);
             });
         });
+        if(callback) callback();
+        console.log("Projections:",this.projections);
     }
 }
 module.exports = Core;

@@ -3,20 +3,57 @@ import './LineComponent.css';
 
 export default class LineComponent extends Component{
     render(){
-        const test = (props) => <div className="test" key={props.n} style={{width: props.duration}}>Test {props.n}</div>;
-        const empty = (props) => (
-            <div className="blank"key={props.n}style={{width:props.duration}}></div>
-        );
-        let n = 4;
-        let tasks = new Array(n*2);
-        for(let i=0;i<n*2;i+=2){
-            tasks[i] = test({duration: 60, n:i});
-            tasks[i+1] = empty({duration: 15, n:i+1});
+        let {data, reference} = this.props;
+        let tasks;
+        if(!data){
+            let n = 4;
+            tasks = new Array(n*2);
+            for(let i=0;i<n*2;i+=2){
+                tasks[i] = <Task n={i} key={i} duration={90} />;
+                tasks[i+1] = <EmptyTask n={i+1} key={i+1} duration={30} />;;
+            }
+        }else{
+            tasks = [];
+            let colorMap = {};
+            let cp = reference;
+            for(let i=0;i<data.length;i++){
+                let atask = data[i];
+                console.log("Index:",i,"dur:",atask.duration,"cp:",cp);
+                if((atask.start-cp)>0){
+                    tasks.push(<EmptyTask n={i} key={-(i+1)} duration={atask.start-cp} />);
+                }
+                if(!colorMap[atask.owner]){
+                    colorMap[atask.owner] = "rgb("+Math.random()*255+","+Math.random()*255+","+Math.random()*255+")";
+                }
+
+                tasks.push(<Task n={i} key={i} duration={atask.duration} bgc={colorMap[atask.owner]} process={atask.owner} />);
+                cp = atask.start+atask.duration;
+            }
         }
-        console.log(tasks);
         return (
             <div className="lc-container">
                 {tasks}
+            </div>
+        );
+    }
+}
+
+class EmptyTask extends Component{
+    render(){
+        return (
+            <div className="blank"
+                key={this.props.n}
+                style={{width: this.props.duration}}></div>
+        );
+    }
+}
+class Task extends Component{
+    render(){
+        return (
+            <div
+                key={this.props.n}
+                style={{width: this.props.duration, backgroundColor: this.props.bgc}}>
+                    {this.props.process}
             </div>
         );
     }

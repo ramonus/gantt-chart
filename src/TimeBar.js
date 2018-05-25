@@ -19,7 +19,6 @@ export default class TimeBar extends Component{
             let { units, resolution } = this.props;
             let size = this.bottomLine.current.offsetWidth;
             let as = Math.floor(size/resolution);
-            console.log("Size:",size,"\nAL:",as,"\nres:",resolution);
             let ticks = new Array(Math.floor(size/resolution)+1);
             for(let i=0;i<ticks.length;i++){
                 ticks[i] = (
@@ -32,7 +31,6 @@ export default class TimeBar extends Component{
     }
     render(){
         const { units, resolution } = this.props;
-        console.log("units:",units," Resolution:",resolution);
         return (
             <tr>
                 <td>PR</td>
