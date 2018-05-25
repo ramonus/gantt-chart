@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import "./ChartDisplay.css";
 import TimeBar from './TimeBar';
 import LineComponent from './LineComponent';
+import "./ChartDisplay.css";
 const Core = require("./core");
+var defaults = require("./defaults");
 
 export default class ChartDisplay extends Component{
 
@@ -16,8 +17,9 @@ export default class ChartDisplay extends Component{
             u = units;
             r = resolution;
         }
-        if(!p) p = this.loadTestProcesses();
-        if(!m) m = this.loadTestLines();
+        console.log(defaults.lines);
+        if(!p) p = defaults.processes;
+        if(!m) m = defaults.lines;
         if(!u) u = 'days';
         if(!r) r = 60;
         let config = {
@@ -40,10 +42,14 @@ export default class ChartDisplay extends Component{
         };
     }
     loadTestProcesses = () => {
+        const genRandomColor = () => "rgb("+Math.random()*255+","+Math.random()*255+","+Math.random()*255+")";
         let processes = [
             {
                 name: "P1",
                 start: 0,
+                options: {
+                    color: genRandomColor(),
+                },
                 tasks: [
                     {
                         owner: "P1",
@@ -68,6 +74,9 @@ export default class ChartDisplay extends Component{
             {
                 name: "P2",
                 start: 0,
+                options: {
+                    color: genRandomColor(),
+                },
                 tasks: [
                     {
                         owner: "P2",
@@ -104,11 +113,12 @@ export default class ChartDisplay extends Component{
     render(){
         const tableIn = this.state.core.getLines().map((line, index) => {
             let parr = this.state.core.getProjections()[line.name];
+            let popt = this.state.core.genOptions().processes;
             return (
                 <tr key={index}>
                     <td
                     className="cd-lineName">{line.name}</td>
-                    <td className="cd-line"><LineComponent data={parr} reference={this.state.core.getReference()} units={this.state.units} resolution={this.state.resolution} /></td>
+                    <td className="cd-line"><LineComponent data={parr} options={popt} reference={this.state.core.getReference()} units={this.state.units} resolution={this.state.resolution} /></td>
                 </tr>
             );
         });

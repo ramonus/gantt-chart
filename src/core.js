@@ -11,6 +11,19 @@ class Core{
     log(){
         console.log("Lines:",this.lines,"\nProcesses:",this.processes);
     }
+    genOptions(){
+        let options = {
+            lines: {},
+            processes: {},
+        };
+        this.lines.forEach( line => {
+            options.lines[line.name] = line.options;
+        });
+        this.processes.forEach( proc => {
+            options.processes[proc.name] = proc.options;
+        });
+        return options;
+    }
     getLines(){
         return this.lines;
     }
@@ -42,14 +55,11 @@ class Core{
             let ctime = process.start;
             process.tasks.forEach((task, ti) => {
                 console.log("Working on task:",task);
-                const find = (time) => {
-
-                }
                 let ni = 0, nt, atime = ctime;
                 for(let i=0;i<this.projections[task.line].length;i++){
                     let atask = this.projections[task.line][i];
                     let a,b,c;
-                    a = (atask.start - atime) > task.duration;
+                    a = (atask.start - atime) >= task.duration;
                     b = i === this.projections[task.line].length-1;
                     if(a){
                         nt = {...task,
@@ -58,8 +68,15 @@ class Core{
                         ni = i;
                         break;
                     }else if(b){
+                        atime = atask.start+atask.duration;
+                        let st;
+                        if(atime>=ctime){
+                            st = atime;
+                        }else{
+                            st = ctime;
+                        }
                         nt = {...task,
-                            start: atask.start+atask.duration,
+                            start: st,
                         };
                         ni = i+1;
                         break;
