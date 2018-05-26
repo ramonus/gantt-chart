@@ -39,75 +39,7 @@ export default class ChartDisplay extends Component{
             units: u,
             resolution: r,
         };
-    }
-    loadTestProcesses = () => {
-        const genRandomColor = () => "rgb("+Math.random()*255+","+Math.random()*255+","+Math.random()*255+")";
-        let processes = [
-            {
-                name: "P1",
-                start: 0,
-                options: {
-                    color: genRandomColor(),
-                },
-                tasks: [
-                    {
-                        owner: "P1",
-                        line: "M1",
-                        index: 0,
-                        duration: 60, // 3600000ms --> 1h
-                    },
-                    {
-                        owner: "P1",
-                        line: "M2",
-                        index: 1,
-                        duration: 30, // 1500000
-                    },
-                    {
-                        owner: "P1",
-                        line: "M1",
-                        index: 2,
-                        duration: 120, // 1500000
-                    },
-                ],
-            },
-            {
-                name: "P2",
-                start: 0,
-                options: {
-                    color: genRandomColor(),
-                },
-                tasks: [
-                    {
-                        owner: "P2",
-                        line: "M2",
-                        index: 0,
-                        duration: 60, // 3600000ms --> 1h
-                    },
-                    {
-                        owner: "P2",
-                        line: "M1",
-                        index: 1,
-                        duration: 60, // 3600000ms --> 1h
-                    },
-                ],
-            },
-        ];
-        return processes;
-    }
-    loadTestLines = () => {
-        let machines = [
-            {
-                name: "M1",
-                workingHours: {start: 8, end: 17},
-                workingDays: "all",
-            },
-            {
-                name: "M2",
-                workingHours: "24",
-                workingDays: "all",
-            }
-        ];
-        return machines;
+        console.log("Processes:",defaults.processes);
     }
     render(){
         const tableIn = this.state.core.getLines().map((line, index) => {

@@ -20,7 +20,6 @@ export default class LineComponent extends Component{
                 if((atask.start-cp)>0){
                     tasks.push(<EmptyTask n={i} key={-(i+1)} duration={atask.start-cp} />);
                 }
-
                 tasks.push(<Task n={i} key={i} duration={atask.duration} bgc={this.props.options[atask.owner].color} process={atask.owner} />);
                 cp = atask.start+atask.duration;
             }
