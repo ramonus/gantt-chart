@@ -33,11 +33,12 @@ export default class ChartDisplay extends Component{
             }, 0),
             resolution: r,
             units: u,
-        }
+        };
         this.state = {
             core: new Core(config),
             units: u,
             resolution: r,
+            reference: config.reference,
         };
         console.log("Processes:",defaults.processes);
     }
@@ -59,7 +60,7 @@ export default class ChartDisplay extends Component{
                 <div className="cd-container">
                     <table border="1"className="cd-table">
                         <thead>
-                            <TimeBar units={this.state.units} resolution={this.state.resolution} />
+                            <TimeBar units={this.state.units} reference={this.state.reference} resolution={this.state.resolution} />
                         </thead>
                         <tbody className="cd-content">
                             {tableIn}

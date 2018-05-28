@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./TimeBar.css";
+import Stamp from './Stamp';
 
 export default class TimeBar extends Component{
     constructor(props){
@@ -7,14 +8,20 @@ export default class TimeBar extends Component{
         this.bottomLine = React.createRef();
         this.state = {
             ticks: null,
+            stamps: null,
             width: "99%",
         };
     }
     componentDidMount(){
-        this.createTicks();
-        window.addEventListener("resize", this.createTicks.bind(this));
+        this.format();
+        window.addEventListener("resize", this.format.bind(this));
     }
-    createTicks = () => {
+    format = () => {
+        this.createTicks(null,() => {
+            this.createStamps();
+        });
+    }
+    createTicks = (e,callback) => {
         this.setState({width: "99%"},() => {
             let { resolution } = this.props;
             let size = this.bottomLine.current.offsetWidth;
@@ -25,8 +32,22 @@ export default class TimeBar extends Component{
                 );
             }
             let correctWidth = resolution*(ticks.length-1);
-            this.setState({ticks,width: correctWidth});
+            this.setState({ticks,width: correctWidth},callback);
         });
+    }
+    createStamps = (callback) => {
+        if(this.state.ticks){
+            let stamps = new Array(this.state.ticks.length);
+            this.state.ticks.forEach((tick,ti) => {
+                let time = this.props.reference+tick.props.style.left/this.props.resolution;
+                stamps[ti] = (<Stamp text={time} key={this.state.ticks.length+ti} left={time*this.props.resolution}/>);
+            });
+            this.setState({stamps},callback);
+        }else{
+            if(callback){
+                callback(new Error("No ticks found"));
+            }
+        }
     }
     _getDateString = (time) => {
         let d = new Date();
@@ -50,6 +71,9 @@ export default class TimeBar extends Component{
                             className="tb-bottomline"></div>
                         {
                             this.state.ticks||null
+                        }
+                        {
+                            this.state.stamps||null
                         }
                     </div>
                 </td>
