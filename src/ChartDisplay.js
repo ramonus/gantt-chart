@@ -19,7 +19,7 @@ export default class ChartDisplay extends Component{
         }
         if(!p) p = defaults.processes;
         if(!m) m = defaults.lines;
-        if(!u) u = 'days';
+        if(!u) u = 'hours';
         if(!r) r = 60;
         let config = {
             lines: m,
@@ -30,7 +30,7 @@ export default class ChartDisplay extends Component{
                 }else{
                     return prev;
                 }
-            }).start:0,
+            }).start/r:0,
             resolution: r,
             units: u,
         };
@@ -40,7 +40,9 @@ export default class ChartDisplay extends Component{
             resolution: r,
             reference: config.reference/r,
         };
-        console.log("Processes:",defaults.processes);
+    }
+    _onCreateTicksHandler = (ticks) => {
+        this.setState({ticks});
     }
     render(){
         const tableIn = this.state.core.getLines().map((line, index) => {
@@ -50,7 +52,15 @@ export default class ChartDisplay extends Component{
                 <tr key={index}>
                     <td
                     className="cd-lineName">{line.name}</td>
-                    <td className="cd-line"><LineComponent data={parr} options={popt} reference={this.state.core.getReference()} units={this.state.units} resolution={this.state.resolution} /></td>
+                    <td className="cd-line">
+                        <LineComponent 
+                            data={parr}
+                            options={popt}
+                            reference={this.state.core.getReference()}
+                            units={this.state.units}
+                            ticks={this.state.ticks}
+                            resolution={this.state.resolution} />
+                    </td>
                 </tr>
             );
         });
@@ -60,7 +70,11 @@ export default class ChartDisplay extends Component{
                 <div className="cd-container">
                     <table border="1"className="cd-table">
                         <thead>
-                            <TimeBar units={this.state.units} reference={this.state.reference} resolution={this.state.resolution} />
+                            <TimeBar
+                                onCreateTicks={this._onCreateTicksHandler.bind(this)}
+                                units={this.state.units}
+                                reference={this.state.reference}
+                                resolution={this.state.resolution} />
                         </thead>
                         <tbody className="cd-content">
                             {tableIn}

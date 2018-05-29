@@ -20,7 +20,17 @@
     overflow: hidden;
     user-select: none;
     border-radius: 3px;
+    z-index: 5;
 }
 .lc-task:hover{
     overflow: visible;
+}
+.lc-stamp{
+    position: absolute;
+    z-index: 10;
+    height: 100%;
+    width: 0px;
+    background-color: transparent;
+    border-right: 1px dashed rgba(75, 75, 75, 0.514)
+    
 }

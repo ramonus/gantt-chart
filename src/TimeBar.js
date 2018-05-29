@@ -32,7 +32,14 @@ export default class TimeBar extends Component{
                 );
             }
             let correctWidth = resolution*(ticks.length-1);
-            this.setState({ticks,width: correctWidth},callback);
+            this.setState({ticks,width: correctWidth},() => {
+                if(this.props.onCreateTicks){
+                    this.props.onCreateTicks(ticks);
+                }
+                if(callback){
+                    callback();
+                }
+            });
         });
     }
     createStamps = (callback) => {
@@ -42,9 +49,11 @@ export default class TimeBar extends Component{
                 switch(this.props.units){
                     case 'days':
                         stamps[ti] = (<Stamp /> );
+                        break;
                     default:
                         let hour = this.props.reference+tick.props.style.left/this.props.resolution;
-                        stamps[ti] = (<Stamp text={hour} key={this.state.ticks.length+ti} left={(hour-this.props.reference)*this.props.resolution}/>);
+                        stamps[ti] = (<Stamp text={hour%24} key={this.state.ticks.length+ti} left={(hour-this.props.reference)*this.props.resolution}/>);
+                        break;
                 }
                 });
             this.setState({stamps},callback);

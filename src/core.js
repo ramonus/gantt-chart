@@ -7,12 +7,12 @@ class Core{
         this.setup = false;
         this.reference = reference;
         this.setupLines();
-        console.log("Projections:",this.projections);
+        // console.log("Projections:",this.projections);
         // log spaces
-        this.lines.forEach(line => {
+        /*this.lines.forEach(line => {
             let spaces = this._findSpaces(this.projections[line.name]);
             console.log("Spaces for",line.name,":",spaces);
-        });
+        });*/
     }
     log(){
         console.log("Lines:",this.lines,"\nProcesses:",this.processes);
@@ -51,7 +51,7 @@ class Core{
     _findSpaces = (projection) => {
         let atime = this.reference;
         let spaces = [];
-        if(projection.length==0){
+        if(projection.length===0){
             spaces = [[0, "Inf"]];
         }
         projection.forEach((task,ti) => {

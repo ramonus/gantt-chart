@@ -2,8 +2,30 @@ import React, { Component } from 'react';
 import './LineComponent.css';
 
 export default class LineComponent extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            stamps: null,
+        };
+    }
+    createStamps = () => {
+        if(this.props.ticks){
+            let stamps = new Array(this.props.ticks.length);
+            this.props.ticks.forEach((tick,ti) => {
+                stamps[ti] = (
+                    <div className="lc-stamp"
+                        style={{left: tick.props.style.left}}
+                        key={stamps.length+ti} >
+                    </div>
+                );
+            });
+            return stamps;
+        }else{
+            return null;
+        }
+    }
     render(){
-        let {data, reference} = this.props;
+        let {data, reference, resolution} = this.props;
         let tasks;
         if(!data){
             let n = 4;
@@ -14,7 +36,7 @@ export default class LineComponent extends Component{
             }
         }else{
             tasks = [];
-            let cp = reference;
+            let cp = reference*resolution;
             for(let i=0;i<data.length;i++){
                 let atask = data[i];
                 if((atask.start-cp)>0){
@@ -24,9 +46,11 @@ export default class LineComponent extends Component{
                 cp = atask.start+atask.duration;
             }
         }
+        const stamps = this.createStamps();
         return (
             <div className="lc-container">
                 {tasks}
+                {stamps}
             </div>
         );
     }
