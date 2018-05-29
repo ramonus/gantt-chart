@@ -24,13 +24,13 @@ export default class ChartDisplay extends Component{
         let config = {
             lines: m,
             processes: p,
-            reference: p.reduce((prev, current) => {
+            reference: p?p.reduce((prev, current) => {
                 if(prev.start>=current.start){
                     return current;
                 }else{
                     return prev;
                 }
-            }, 0),
+            }).start:0,
             resolution: r,
             units: u,
         };
@@ -38,7 +38,7 @@ export default class ChartDisplay extends Component{
             core: new Core(config),
             units: u,
             resolution: r,
-            reference: config.reference,
+            reference: config.reference/r,
         };
         console.log("Processes:",defaults.processes);
     }

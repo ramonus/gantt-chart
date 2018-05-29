@@ -39,9 +39,14 @@ export default class TimeBar extends Component{
         if(this.state.ticks){
             let stamps = new Array(this.state.ticks.length);
             this.state.ticks.forEach((tick,ti) => {
-                let time = this.props.reference+tick.props.style.left/this.props.resolution;
-                stamps[ti] = (<Stamp text={time} key={this.state.ticks.length+ti} left={time*this.props.resolution}/>);
-            });
+                switch(this.props.units){
+                    case 'days':
+                        stamps[ti] = (<Stamp /> );
+                    default:
+                        let hour = this.props.reference+tick.props.style.left/this.props.resolution;
+                        stamps[ti] = (<Stamp text={hour} key={this.state.ticks.length+ti} left={(hour-this.props.reference)*this.props.resolution}/>);
+                }
+                });
             this.setState({stamps},callback);
         }else{
             if(callback){
