@@ -46,6 +46,7 @@ class Task extends Component{
         return (
             <div
                 key={this.props.n}
+                className="lc-task"
                 style={{width: this.props.duration, backgroundColor: this.props.bgc}}>
                     {this.props.process}
             </div>

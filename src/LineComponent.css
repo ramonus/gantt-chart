@@ -16,3 +16,11 @@
 .blank{
     background-color: white; 
 }
+.lc-task{
+    overflow: hidden;
+    user-select: none;
+    border-radius: 3px;
+}
+.lc-task:hover{
+    overflow: visible;
+}
