@@ -30,7 +30,7 @@ export default class ChartDisplay extends Component{
                 }else{
                     return prev;
                 }
-            }).start/r:0,
+            }).start:0,
             resolution: r,
             units: u,
         };
@@ -38,7 +38,7 @@ export default class ChartDisplay extends Component{
             core: new Core(config),
             units: u,
             resolution: r,
-            reference: config.reference/r,
+            reference: config.reference,
         };
     }
     _onCreateTicksHandler = (ticks) => {

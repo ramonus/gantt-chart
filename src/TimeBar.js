@@ -52,6 +52,7 @@ export default class TimeBar extends Component{
                         break;
                     default:
                         let hour = this.props.reference+tick.props.style.left/this.props.resolution;
+                        console.log("Ref:",this.props.reference,"left:",tick.props.style.left,"Res:",this.props.resolution,"hour:",hour);
                         stamps[ti] = (<Stamp text={hour%24} key={this.state.ticks.length+ti} left={(hour-this.props.reference)*this.props.resolution}/>);
                         break;
                 }

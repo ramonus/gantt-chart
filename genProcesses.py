@@ -3,9 +3,20 @@ import argparse, json, random
 parser = argparse.ArgumentParser()
 parser.add_argument("-l","--lines",type=int,nargs="?",default=3,help="Number L of lines to generate")
 parser.add_argument("-p","--processes",type=int,nargs="?",default=3,help="Number P of processes to generate")
+parser.add_argument("-r","--range",type=str,nargs="?",default="2-5",help="Range string to random set the number of tasks per process")
+parser.add_argument("-d","--duration",type=str,nargs="?",default="1-3",help="Range string format a-b to randomly set the duration of every task in a integer between a and b")
 parser.add_argument("o",type=str,default="defaults.js",help="Output file")
 args = parser.parse_args()
 
+def formatRange(r):
+    try:
+        num = r.split("-")
+        a = int(num[0])
+        b = int(num[1])
+        return a,b
+    except:
+        return False
+    
 def main():
     nl = args.lines
     np = args.processes
@@ -28,7 +39,7 @@ def main():
             "tasks": []
         }
         lline = ""
-        for j in range(random.randint(2,5)):
+        for j in range(random.randint(*formatRange(args.range))):
             ln = lline
             while ln == lline:
                 ln = "LINE "+str(random.randint(0,nl-1))
@@ -36,7 +47,7 @@ def main():
                 "owner": nproc["name"],
                 "line": ln,
                 "index": j,
-                "duration": random.randint(1,6)*30,
+                "duration": random.randint(*formatRange(args.duration)),
             }
             lline = ln
             nproc["tasks"].append(nt)

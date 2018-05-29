@@ -40,9 +40,9 @@ export default class LineComponent extends Component{
             for(let i=0;i<data.length;i++){
                 let atask = data[i];
                 if((atask.start-cp)>0){
-                    tasks.push(<EmptyTask n={i} key={-(i+1)} duration={atask.start-cp} />);
+                    tasks.push(<EmptyTask n={i} key={-(i+1)} resolution={this.props.resolution} duration={atask.start-cp} />);
                 }
-                tasks.push(<Task n={i} key={i} duration={atask.duration} bgc={this.props.options[atask.owner].color} process={atask.owner} />);
+                tasks.push(<Task n={i} key={i} duration={atask.duration} bgc={this.props.options[atask.owner].color} resolution={this.props.resolution} process={atask.owner} />);
                 cp = atask.start+atask.duration;
             }
         }
@@ -61,7 +61,7 @@ class EmptyTask extends Component{
         return (
             <div className="blank"
                 key={this.props.n}
-                style={{width: this.props.duration}}></div>
+                style={{width: this.props.duration*this.props.resolution}}></div>
         );
     }
 }
@@ -71,7 +71,12 @@ class Task extends Component{
             <div
                 key={this.props.n}
                 className="lc-task"
-                style={{width: this.props.duration, backgroundColor: this.props.bgc}}>
+                style={
+                    {
+                        backgroundColor: this.props.bgc,
+                        width: this.props.duration*this.props.resolution,
+                    } 
+                } >
                     {this.props.process}
             </div>
         );

@@ -124,6 +124,7 @@ class Core{
             });
         });
         if(callback) callback();
+        console.log("Projections:",this.projections);
     }
 }
 module.exports = Core;
