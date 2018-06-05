@@ -7,6 +7,7 @@ export default class LineComponent extends Component{
         this.state = {
             stamps: null,
         };
+        this.cElement = React.createRef();
     }
     createStamps = () => {
         if(this.props.ticks){
@@ -23,6 +24,13 @@ export default class LineComponent extends Component{
         }else{
             return null;
         }
+    }
+    _onDrop = (e) => {
+        let pixdrop = this.props.reference*this.props.resolution+e.clientX-this.cElement.current.offsetLeft;
+        console.log("PixelDrop:",pixdrop);
+        let timedrop = pixdrop/this.props.resolution;
+        console.log("Timedrop:",timedrop);
+        console.log(e.dataTransfer.getData("text"));
     }
     render(){
         let {data, reference, resolution} = this.props;
@@ -48,7 +56,10 @@ export default class LineComponent extends Component{
         }
         const stamps = this.createStamps();
         return (
-            <div className="lc-container">
+            <div className="lc-container"
+                ref={this.cElement}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={this._onDrop.bind(this)}>
                 {tasks}
                 {stamps}
             </div>
@@ -66,9 +77,15 @@ class EmptyTask extends Component{
     }
 }
 class Task extends Component{
+    _onDragHandler = (e) => {
+        e.dataTransfer.setData("text", "Eeeeeseeee");
+        // console.log(e.dataTransfer.getData("text"));
+    }
     render(){
         return (
             <div
+                draggable={true}
+                onDragStart={this._onDragHandler.bind(this)}
                 key={this.props.n}
                 className="lc-task"
                 style={

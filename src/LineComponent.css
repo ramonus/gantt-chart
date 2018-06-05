@@ -21,6 +21,7 @@
     user-select: none;
     border-radius: 3px;
     z-index: 5;
+    cursor:ew-resize;
 }
 .lc-task:hover{
     overflow: visible;
