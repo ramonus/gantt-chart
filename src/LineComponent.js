@@ -50,7 +50,7 @@ export default class LineComponent extends Component{
                 if((atask.start-cp)>0){
                     tasks.push(<EmptyTask n={i} key={-(i+1)} resolution={this.props.resolution} duration={atask.start-cp} />);
                 }
-                tasks.push(<Task n={i} key={i} duration={atask.duration} bgc={this.props.options[atask.owner].color} resolution={this.props.resolution} process={atask.owner} />);
+                tasks.push(<Task n={i} key={i} task={atask} bgc={this.props.options[atask.owner].color} resolution={this.props.resolution} />);
                 cp = atask.start+atask.duration;
             }
         }
@@ -91,10 +91,10 @@ class Task extends Component{
                 style={
                     {
                         backgroundColor: this.props.bgc,
-                        width: this.props.duration*this.props.resolution,
+                        width: this.props.task.duration*this.props.resolution,
                     } 
                 } >
-                    {this.props.process}
+                    {this.props.task.owner}
             </div>
         );
     }
