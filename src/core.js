@@ -49,6 +49,7 @@ class Core{
         }
     }
     _findSpaces = (projection) => {
+        // Given a projection, returns the spaces where there is not a task
         let atime = this.reference;
         let spaces = [];
         if(projection.length===0){
@@ -68,6 +69,7 @@ class Core{
         return spaces;
     }
     _findIndex = (atime,projection) => {
+        // Given a time and a projection, returns the index of the task that is found in that specific time, if projection is empty, returns index 0
         let ind = 0;
         let found = false;
         projection.forEach((task,i) => {
@@ -84,9 +86,9 @@ class Core{
         return ind;
     }
     setupLines = (callback) => {
-        this.projections = {};
+        this.projections = {}; // The projections are the array of tasks that are treated with the corresponding line
         this.lines.forEach(line => {
-            this.projections[line.name] = [];
+            this.projections[line.name] = []; // Setup empty prijections
         });
         this.processes.forEach((process, pi) => {
             let ctime = process.start;
